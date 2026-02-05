@@ -100,3 +100,37 @@ bun mobile
 
 - **TypeScript Syntax**: If you encounter link-related TypeErrors that are non-critical, you may use `@ts-ignore` to maintain agility, though fixing the root cause in the shared package is preferred.
 - **Tailwind**: Always prioritize adding shared styles to `packages/ui/src/global.css` to ensure they are available to all platforms.
+- **Environment Management**: Keep platform-specific secrets in their respective `.env` files, but shared backend variables should stay in the root `.env`.
+
+---
+
+## 🔑 Environment Variables
+
+To get the project running, you need the following variables in your root `.env` file. See the [**.env.example**](./.env.example) for a template.
+
+| Variable                 | Description                                                  | App Usage                            |
+| :----------------------- | :----------------------------------------------------------- | :----------------------------------- |
+| `CONVEX_DEPLOYMENT`      | The name of your Convex deployment (e.g. `dev:foo-bar-123`). | Convex CLI                           |
+| `CONVEX_URL`             | Your Convex deployment URL.                                  | Backend                              |
+| `VITE_CONVEX_URL`        | Shared Convex URL for Web and Desktop apps.                  | `@monorepo/web`, `@monorepo/desktop` |
+| `EXPO_PUBLIC_CONVEX_URL` | Shared Convex URL for Mobile (Native) apps.                  | `@monorepo/mobile`                   |
+
+---
+
+## ♻️ Reusing this Template
+
+When starting a new project based on this template, follow these steps to customize it:
+
+1. **Rename Package Scope**:
+   - Find and replace all instances of `@monorepo` with your own scope (e.g., `@my-app`).
+   - Update `package.json` files in the root and all subdirectories.
+2. **Update App Metadata**:
+   - **Web**: Update `<title>` in `apps/web/index.html`.
+   - **Desktop**: Update `productName` and `identifier` in `apps/desktop/src-tauri/tauri.conf.json`.
+   - **Mobile**: Update `name`, `slug`, and `scheme` in `apps/mobile/app.json`.
+3. **Configure Convex**:
+   - Run `npx convex dev` in `packages/convex` to initialize a new backend.
+   - Update the `.env` file with your new `CONVEX_URL`.
+4. **Vercel Deployment**:
+   - Ensure you add `CONVEX_DEPLOY_KEY` to your Vercel Environment Variables.
+   - Reference `turbo.json` to ensure your keys are exposed to the build pipeline.
