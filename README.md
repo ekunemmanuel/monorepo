@@ -1,0 +1,102 @@
+# Monorepo Template
+
+A cross-platform monorepo template for building highly integrated Web, Desktop, and Mobile applications using a shared backend and UI logic. This project leverages **Bun Workspaces**, **Turbo**, and **Convex** to provide a seamless development experience across all platforms.
+
+## 🚀 Architecture Overview
+
+The project is structured as a monorepo with multiple applications and shared packages:
+
+### 📱 Applications (`apps/`)
+
+- **[Web](./apps/web)**: A modern web application built with **Vue 3** and **Vite**.
+- **[Desktop](./apps/desktop)**: A cross-platform desktop app powered by **Tauri**, using **Vue 3** and **Vite** for the frontend.
+- **[Mobile](./apps/mobile)**: A mobile application built with **React Native** and **Expo**, utilizing **Uniwind (Tailwind CSS)** for styling.
+
+### 📦 Shared Packages (`packages/`)
+
+- **[UI](./packages/ui)**: Centralized design system.
+  - Contains `global.css` with the core Tailwind configurations and shared styles used across Web, Desktop, and Mobile.
+- **[Convex](./packages/convex)**: Shared backend logic and client configurations.
+  - Manages database schemas, queries, and mutations.
+  - Provides shared client wrappers for both Vue (Web/Desktop) and React (Mobile).
+
+---
+
+## 🛠️ Technology Stack
+
+| Platform    | Framework           | Styling                | Tooling |
+| :---------- | :------------------ | :--------------------- | :------ |
+| **Web**     | Vue 3               | Tailwind CSS (Shared)  | Vite    |
+| **Desktop** | Vue 3 + Tauri       | Tailwind CSS (Shared)  | Vite    |
+| **Mobile**  | React Native + Expo | Uniwind (Tailwind CSS) | Metro   |
+| **Backend** | Convex              | N/A                    | Bun     |
+
+---
+
+## 🔗 Shared Packages & Linking Strategy
+
+One of the core strengths of this template is the ability to share logic and packages without redundant installations.
+
+### workspace:\* Linking
+
+This monorepo uses **Bun Workspaces** to link packages. Instead of downloading or installing shared packages from a registry, they are referenced directly from the local `packages/` folder.
+
+In each app's `package.json`, shared packages are linked like this:
+
+```json
+"dependencies": {
+  "@monorepo/ui": "workspace:*",
+  "@monorepo/convex": "workspace:*"
+}
+```
+
+This ensures that any changes made in `packages/ui` or `packages/convex` are immediately reflected across all platforms without needing a re-install.
+
+### Platform-Specific UI Usage
+
+- **Web & Desktop**: Use the `global.css` and shared components directly via Vite.
+- **Mobile**: Uses `uniwind` for Tailwind support. It references the global styles from the UI package to maintain visual consistency while adapting to React Native's component model.
+
+### Convex Integration
+
+Backend logic is centralized in `@monorepo/convex`.
+
+- **Web/Desktop**: Share the same Vue-specific Convex client logic.
+- **Mobile**: Shares the schema and API definitions but uses a React-specific provider and client setup to handle the React Native environment.
+
+---
+
+## 🛠️ Getting Started
+
+### Prerequisites
+
+- [Bun](https://bun.sh/) installed on your machine.
+- [Convex](https://www.convex.dev/) account and CLI.
+- [Tauri](https://tauri.app/) dependencies (for Desktop).
+- [Expo Go](https://expo.dev/go) (for Mobile testing).
+
+### Installation
+
+```bash
+bun install
+```
+
+### Running the Apps
+
+You can run all platforms using Turbo:
+
+```bash
+# Run Web
+bun web
+
+# Run Desktop (Tauri)
+bun desktop
+
+# Run Mobile (Expo)
+bun mobile
+```
+
+### Development Tips
+
+- **TypeScript Syntax**: If you encounter link-related TypeErrors that are non-critical, you may use `@ts-ignore` to maintain agility, though fixing the root cause in the shared package is preferred.
+- **Tailwind**: Always prioritize adding shared styles to `packages/ui/src/global.css` to ensure they are available to all platforms.

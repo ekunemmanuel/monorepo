@@ -1,0 +1,19 @@
+{
+    "name": "@monorepo/ui",
+    "version": "0.0.0",
+    "private": true,
+    "type": "module",
+    "exports": {
+        "./global.css": "./src/global.css",
+        "./plugin": "./src/plugin.ts",
+        "./convex": "./src/convex.ts"
+    },
+    "devDependencies": {
+        "@tailwindcss/vite": "^4.1.18",
+        "tailwindcss": "^4.1.18",
+        "vite": "^7.2.4"
+    },
+    "dependencies": {
+        "convex-vue": "^0.1.5"
+    }
+}

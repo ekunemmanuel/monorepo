@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
+@import "tailwindcss";
+
+@theme {
+    /* Theme Font */
+    --font-sans: "Urbanist", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    /* Default (Light) Mode Palette */
+    --color-background: #ffffff;
+    --color-foreground: #202020;
+    --color-muted: #f4f4f4;
+    --color-muted-foreground: #7a7a7a;
+    --color-primary: #ff568a;
+    --color-primary-foreground: #ffffff;
+    --color-accent: #f8f9fa;
+    --color-accent-foreground: #202020;
+    --color-card: #ffffff;
+    --color-border: #00000017;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --color-background: #000000;
+        --color-foreground: #ffffff;
+        --color-muted: #1a1a1a;
+        --color-muted-foreground: #a0a0a0;
+        --color-accent: #2a2a2a;
+        --color-accent-foreground: #ffffff;
+        --color-card: #121212;
+        --color-border: #ffffff20;
+    }
+}
