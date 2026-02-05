@@ -3,7 +3,8 @@
     "version": "0.0.0",
     "scripts": {
         "dev": "convex dev",
-        "build": "convex deploy",
+        "build": "convex codegen",
+        "deploy": "convex deploy",
         "test": "convex test"
     },
     "private": true,

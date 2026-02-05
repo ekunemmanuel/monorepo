@@ -28,6 +28,11 @@
         "desktop": {
             "cache": false,
             "persistent": true
+        },
+        "deploy": {
+            "dependsOn": [
+                "build"
+            ]
         }
     }
 }
